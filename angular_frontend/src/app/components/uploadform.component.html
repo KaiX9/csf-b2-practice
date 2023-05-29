@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Form</title>
+  </head>
+  <body>
+    <h1>Upload</h1>
+
+    <form [formGroup]="form" (submit)="upload()">
+      <table>
+        <tr>
+          <td>Name:</td>
+          <td>
+            <input
+              type="text"
+              size="30"
+              placeholder="Name"
+              formControlName="name"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Title:</td>
+          <td>
+            <input
+              type="text"
+              size="30"
+              placeholder="Title"
+              formControlName="title"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Comments:</td>
+          <td>
+            <textarea
+              name="comments"
+              cols="30"
+              rows="10"
+              placeholder="Your comments in here"
+              formControlName="comments"
+            ></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>Archive:</td>
+          <td>
+            <input type="file" formControlName="file" #uploadZip />
+          </td>
+        </tr>
+        <tr>
+          <td><button type="button" [routerLink]="['/']">Cancel</button></td>
+          <td><button type="submit" [disabled]="form.invalid">Submit</button></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
