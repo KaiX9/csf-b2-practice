@@ -3,9 +3,9 @@ import { Injectable, inject } from "@angular/core";
 import { Archive, Upload } from "./models";
 import { Observable } from "rxjs";
 
-const URL_UPLOAD = 'http://localhost:8080/upload'
-const URL_BUNDLE = 'http://localhost:8080/bundle'
-const URL_ALLBUNDLES = 'http://localhost:8080/bundles'
+const URL_UPLOAD = '/upload'
+const URL_BUNDLE = '/bundle'
+const URL_ALLBUNDLES = '/bundles'
 
 @Injectable()
 export class ArchiveService {
