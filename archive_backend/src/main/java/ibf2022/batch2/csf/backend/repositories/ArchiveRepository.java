@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -51,9 +54,17 @@ public class ArchiveRepository {
 	// Do not change the method's name
 	// Write the native mongo query that you will be using in this method
 	//
-	//
-	public Object getBundleByBundleId(/* any number of parameters here */) {
-		return null;
+	// db.archives.find({bundleId: <bundleId>}, {_id: 0})
+	public Archives getBundleByBundleId(String bundleId) {
+		Query q = new Query();
+		q.addCriteria(Criteria.where("bundleId").is(bundleId));
+		q.fields().exclude("_id");
+
+		return mongoTemplate.find(q, Document.class, "archives")
+							.stream()
+							.map(d -> Archives.createFromDoc(d))
+							.findFirst()
+							.get();
 	}
 
 	//TODO: Task 6
@@ -61,10 +72,19 @@ public class ArchiveRepository {
 	// Do not change the method's name
 	// Write the native mongo query that you will be using in this method
 	//
-	//
-	public Object getBundles(/* any number of parameters here */) {
-		return null;
+	// db.archives.find({}, {_id: 0, name: 0, comments: 0, urls: 0}).sort({date: -1, title: 1})
+	public List<Archives> getBundles() {
+		Query q = new Query();
+		q.fields().exclude("_id")
+				.exclude("name")
+				.exclude("comments")
+				.exclude("urls");
+		q.with(Sort.by(Sort.Direction.DESC, "date")
+				.and(Sort.by(Sort.Direction.ASC, "title")));
+		return mongoTemplate.find(q, Document.class, "archives")
+							.stream()
+							.map(d -> Archives.createFromDoc(d))
+							.toList();
 	}
-
 
 }

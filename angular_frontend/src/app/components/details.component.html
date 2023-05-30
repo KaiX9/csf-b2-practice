@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundle Details</title>
+</head>
+<body *ngIf="arcObs$ | async as arc">
+    
+    <h1>{{ arc.title }}</h1>
+    <h3><p>by {{ arc.name }} on {{ arc.date }}</p></h3>
+    <p>{{ arc.comments }}</p>
+    <div *ngFor="let url of arc.urls" style="margin-bottom: 10px;">
+        <img [src]="url" width="500">
+    </div>
+    <div style="text-align: center;">
+        <button type="button" class="button" [routerLink]="['/']">Back</button>
+    </div>
+
+</body>
+</html>

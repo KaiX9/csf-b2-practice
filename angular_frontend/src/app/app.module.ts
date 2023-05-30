@@ -8,10 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { SummaryComponent } from './components/summary.component';
 import { ArchiveService } from './archive.service';
+import { DetailsComponent } from './components/details.component';
 
 const routes: Routes = [
-  { path: '', component: UploadformComponent },
-  // { path: 'upload', component: UploadformComponent },
+  { path: '', component: SummaryComponent },
+  { path: 'upload', component: UploadformComponent },
+  { path: 'bundle/:bundleId', component: DetailsComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ]
 
@@ -19,7 +21,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     UploadformComponent,
-    SummaryComponent
+    SummaryComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule, 

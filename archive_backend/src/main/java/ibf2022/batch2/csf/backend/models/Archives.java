@@ -1,8 +1,9 @@
 package ibf2022.batch2.csf.backend.models;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bson.Document;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
@@ -11,7 +12,7 @@ import jakarta.json.JsonObject;
 public class Archives {
     
     private String bundleId;
-    private LocalDateTime date;
+    private String date;
     private String title;
     private String name;
     private String comments;
@@ -23,10 +24,10 @@ public class Archives {
     public void setBundleId(String bundleId) {
         this.bundleId = bundleId;
     }
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
     public String getTitle() {
@@ -67,12 +68,31 @@ public class Archives {
         }
         return Json.createObjectBuilder()
             .add("bundleId", getBundleId())
-            .add("date", getDate().toString())
+            .add("date", getDate())
             .add("title", getTitle())
             .add("name", getName())
             .add("comments", getComments())
             .add("urls", arrBuilder.build())
             .build();
+    }
+
+    public JsonObject toJSONForBundles() {
+        return Json.createObjectBuilder()
+            .add("bundleId", getBundleId())
+            .add("date", getDate())
+            .add("title", getTitle())
+            .build();
+    }
+
+    public static Archives createFromDoc(Document doc) {
+        Archives a = new Archives();
+        a.setBundleId(doc.getString("bundleId"));
+        a.setDate(doc.getString("date"));
+        a.setTitle(doc.getString("title"));
+        a.setName(doc.getString("name"));
+        a.setComments(doc.getString("comments"));
+        a.setUrls(doc.getList("urls", String.class));
+        return a;
     }
 
 }

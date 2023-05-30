@@ -1,1 +1,30 @@
-<p>summary works!</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bundles Summary</title>
+  </head>
+  <body class="center">
+    <h1 class="title">Photo Storage</h1>
+    <div class="button-div">
+      <button type="button" class="button" [routerLink]="['/upload']">
+        Upload
+      </button>
+    </div>
+    <table *ngIf="bundles$ | async as bun" class="table">
+      <thead>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody *ngFor="let b of bun" (click)="displayBundle(b.bundleId)">
+        <tr>
+          <td class="left-text">{{ b.title }}</td>
+          <td class="right-text">{{ b.date }}</td>
+        </tr>
+        <br />
+      </tbody>
+    </table>
+  </body>
+</html>

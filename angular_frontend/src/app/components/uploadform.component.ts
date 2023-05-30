@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArchiveService } from '../archive.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-uploadform',
@@ -11,6 +12,7 @@ export class UploadformComponent implements OnInit {
 
   form!: FormGroup
   fb = inject(FormBuilder)
+  router = inject(Router)
   archiveSvc = inject(ArchiveService)
 
   @ViewChild('uploadZip')
@@ -37,7 +39,11 @@ export class UploadformComponent implements OnInit {
 
     this.archiveSvc.upload(data, f).subscribe(
       result => {
-        console.info('>>: ', result)
+        console.info('>>: ', result);
+        this.router.navigate(['/bundle', result.bundleId]);
+      },
+      error => {
+        alert(JSON.stringify(error.error));
       }
     );
   }

@@ -1,0 +1,33 @@
+.button {
+    width: 140px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.title {
+    margin-right: 150px;
+}
+
+.button-div {
+    margin-left: 200px;
+    margin-bottom: 20px;
+}
+
+.right-text {
+    text-align: right;
+}
+
+.left-text {
+    text-align: left;
+}
+
+.table {
+    width: 350px;
+}
